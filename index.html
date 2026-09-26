@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Biblioteca</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #579fe2;
+            text-align: center;
+            padding: 50px;
+        
+        label{
+            display:inline-block;
+            width: 150px;
+        }
+
+        input{
+            display:inline-block;
+            width: 150px;
+        }
+
+        }
+    </style>
+</head>
+<body>
+    
+    <h1>Inicio de sesion</h1>
+    <br><br>
+    
+    <form action="/login" method="POST">
+
+        <label for="usuario">Usuario</label>
+        <input
+            type="text"
+            id="usuario"
+            name="usuario"
+            placeholder="ej: usuario@gmail.com"
+            required
+        >
+    <br><br>
+        <label for="contrasenia">Contraeña</label>
+        <input
+            type="text"
+            id="constrasenia"
+            name="constrasenia"
+            placeholder="ej: tuContraseña"
+            required
+            >
+    <br><br>
+        <p>Inicia sesion para continuar</p>
+        <button>Iniciar</button>
+    </form>
+    <br><br>
+
+</body>
+</html>
