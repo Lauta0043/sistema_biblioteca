@@ -1,0 +1,609 @@
+Sí. Te lo resumo en formato de **apunte corto**, quedándome con lo necesario para entender y desarrollar el proyecto.
+
+# Resumen — Sistema de Gestión de Biblioteca
+
+## 1. Objetivo del proyecto
+
+El proyecto consiste en desarrollar un **Sistema de Gestión de Biblioteca** utilizando:
+
+* **PHP** → lógica del sistema y backend.
+* **MySQL** → almacenamiento de datos.
+* **HTML/CSS** → interfaz.
+* **JavaScript** → validaciones e interacción dinámica.
+* **Git** → control de versiones.
+
+El sistema debe administrar:
+
+1. Libros.
+2. Usuarios/socios.
+3. Préstamos.
+4. Devoluciones.
+5. Usuarios que ingresan al sistema mediante login.
+
+El proyecto es una evolución de los ejercicios anteriores de **CRUD de Productos y Sistema de Estudiantes**. 
+
+---
+
+# 2. Funcionamiento general
+
+La estructura básica es:
+
+```text
+USUARIO
+   ↓
+HTML
+   ↓
+PHP
+   ↓
+MySQL
+   ↓
+PHP
+   ↓
+HTML
+```
+
+Por ejemplo, para agregar un libro:
+
+```text
+Formulario HTML
+      ↓
+   POST
+      ↓
+ PHP recibe datos
+      ↓
+Valida información
+      ↓
+ INSERT INTO
+      ↓
+    MySQL
+```
+
+Para mostrarlo:
+
+```text
+MySQL
+  ↓
+SELECT
+  ↓
+PHP
+  ↓
+HTML
+  ↓
+Tabla en pantalla
+```
+
+---
+
+# 3. Base de datos
+
+La base principal se llama:
+
+```text
+biblioteca
+```
+
+El modelo tiene cuatro tablas principales:
+
+```text
+libros
+usuarios
+prestamos
+usuarios_sistema
+```
+
+### Libros
+
+Guarda información como:
+
+```text
+id
+titulo
+autor
+isbn
+editorial
+anio
+categoria
+descripcion
+estado
+```
+
+El estado puede ser:
+
+```text
+disponible
+prestado
+```
+
+El ISBN debe ser único. 
+
+### Usuarios
+
+Son los **socios que piden libros prestados**:
+
+```text
+id
+nombre_completo
+email
+telefono
+direccion
+dni
+fecha_registro
+estado
+```
+
+El estado puede ser:
+
+```text
+activo
+suspendido
+```
+
+Email y DNI deben ser únicos. 
+
+### Préstamos
+
+Relaciona un libro con un usuario:
+
+```text
+id
+libro_id
+usuario_id
+fecha_prestamo
+fecha_devolucion
+fecha_dev_real
+estado
+observaciones
+```
+
+Los estados son:
+
+```text
+activo
+devuelto
+vencido
+```
+
+
+
+### Usuarios del sistema
+
+Son las personas que **administran la biblioteca**, no los socios.
+
+```text
+id
+usuario
+password
+nombre
+email
+rol
+```
+
+La contraseña debe guardarse mediante `password_hash()`. 
+
+---
+
+# 4. Relaciones de la base de datos
+
+La relación principal es:
+
+```text
+LIBROS
+   │
+   │ 1
+   │
+   │ N
+   ▼
+PRESTAMOS
+   ▲
+   │ N
+   │
+   │ 1
+USUARIOS
+```
+
+Esto significa:
+
+* Un libro puede aparecer en muchos préstamos a lo largo del tiempo.
+* Un usuario puede tener muchos préstamos.
+* Cada préstamo pertenece a un solo libro y un solo usuario.
+
+Se utilizan **claves foráneas (FK)** para mantener la integridad de las relaciones. 
+
+---
+
+# 5. CRUD
+
+Cada módulo utiliza el concepto CRUD:
+
+| Operación  | SQL      | Ejemplo        |
+| ---------- | -------- | -------------- |
+| Crear      | `INSERT` | Crear libro    |
+| Leer       | `SELECT` | Mostrar libros |
+| Actualizar | `UPDATE` | Editar libro   |
+| Eliminar   | `DELETE` | Eliminar libro |
+
+La estructura propuesta para un módulo es:
+
+```text
+index.php       → listar
+crear.php       → crear
+editar.php      → modificar
+eliminar.php    → eliminar
+detalle.php     → ver información
+```
+
+
+
+---
+
+# 6. Estructura del proyecto
+
+La organización propuesta es:
+
+```text
+biblioteca/
+│
+├── index.php
+├── login.php
+├── logout.php
+├── dashboard.php
+│
+├── config/
+│   ├── database.php
+│   └── config.php
+│
+├── includes/
+│   ├── header.php
+│   ├── footer.php
+│   └── auth.php
+│
+├── libros/
+│   ├── index.php
+│   ├── crear.php
+│   ├── editar.php
+│   └── eliminar.php
+│
+├── usuarios/
+│   ├── index.php
+│   ├── crear.php
+│   ├── editar.php
+│   ├── detalle.php
+│   └── eliminar.php
+│
+├── prestamos/
+│   ├── index.php
+│   ├── nuevo.php
+│   ├── devolver.php
+│   └── historial.php
+│
+├── assets/
+│   ├── css/
+│   ├── js/
+│   └── img/
+│
+└── sql/
+    ├── estructura.sql
+    └── datos_prueba.sql
+```
+
+
+
+---
+
+# 7. Conexión PHP + MySQL
+
+La conexión se centraliza en:
+
+```text
+config/database.php
+```
+
+La configuración propuesta utiliza:
+
+```php
+DB_HOST
+DB_NAME
+DB_USER
+DB_PASS
+```
+
+y se recomienda utilizar **PDO o MySQLi con prepared statements**. 
+
+La idea es:
+
+```text
+PHP
+ │
+ │ conexión
+ ▼
+MySQL
+ │
+ ├── SELECT
+ ├── INSERT
+ ├── UPDATE
+ └── DELETE
+```
+
+---
+
+# 8. Funcionalidades obligatorias
+
+## Login
+
+El sistema debe permitir:
+
+```text
+Usuario + contraseña
+        ↓
+Validar
+        ↓
+Crear sesión
+        ↓
+Dashboard
+```
+
+También debe existir:
+
+```text
+Logout
+```
+
+y las páginas deben comprobar que exista una sesión activa. 
+
+---
+
+## CRUD de libros
+
+Debe permitir:
+
+* Listar libros.
+* Buscar.
+* Crear.
+* Editar.
+* Eliminar.
+
+No se debe eliminar un libro que actualmente esté prestado. 
+
+---
+
+## CRUD de usuarios
+
+Debe permitir:
+
+* Listar usuarios.
+* Buscar.
+* Crear.
+* Editar.
+* Ver detalles.
+* Eliminar.
+
+No se debe eliminar un usuario que tenga préstamos activos. 
+
+---
+
+# 9. Préstamos
+
+Para crear un préstamo hay que comprobar:
+
+```text
+¿Existe el libro?
+       ↓
+¿Está disponible?
+       ↓
+¿Existe el usuario?
+       ↓
+¿Está activo?
+       ↓
+¿Tiene préstamos vencidos?
+       ↓
+¿Tiene menos de 3 préstamos?
+       ↓
+CREAR PRÉSTAMO
+```
+
+Cuando se confirma:
+
+```text
+INSERT préstamo
+       +
+libro → prestado
+```
+
+La devolución prevista se calcula automáticamente a **14 días**. 
+
+---
+
+# 10. Devoluciones
+
+Cuando se devuelve un libro:
+
+```text
+Préstamo
+   ↓
+fecha_dev_real = HOY
+   ↓
+estado = devuelto
+   ↓
+libro = disponible
+```
+
+Si se entregó tarde, se calculan los días de demora. 
+
+---
+
+# 11. Reglas importantes
+
+Algunas reglas del sistema son:
+
+```text
+Máximo préstamos por usuario: 3
+Duración normal: 14 días
+```
+
+Un usuario:
+
+* Debe estar activo.
+* No puede tener préstamos vencidos.
+* No puede superar 3 préstamos simultáneos.
+
+Un libro:
+
+* Debe existir.
+* Debe estar disponible.
+* No puede eliminarse mientras esté prestado. 
+
+---
+
+# 12. Seguridad
+
+El proyecto exige prestar especial atención a:
+
+```text
+Prepared Statements
+        ↓
+Evitar SQL Injection
+```
+
+Además:
+
+* Validar datos en PHP.
+* Validar datos en JavaScript.
+* Utilizar `password_hash()`.
+* Utilizar `password_verify()`.
+* Proteger las páginas mediante sesiones.
+* Utilizar `htmlspecialchars()`.
+* Validar tipos de datos.
+
+
+
+---
+
+# 13. Dashboard
+
+Después del login, el usuario llega al dashboard.
+
+Debe mostrar información como:
+
+```text
+Total de libros
+Libros disponibles
+Libros prestados
+Usuarios activos
+Préstamos activos
+Préstamos vencidos
+```
+
+Además:
+
+* Préstamos vencidos.
+* Próximos vencimientos.
+* Últimos préstamos.
+* Libros más prestados.
+* Accesos rápidos.
+
+
+
+---
+
+# 14. Cronograma
+
+### Semana 1
+
+```text
+Día 1-2
+↓
+Base de datos
+Login
+Sesiones
+
+Día 3-4
+↓
+CRUD libros
+CRUD usuarios
+
+Día 5
+↓
+Dashboard
+Integración
+Pruebas
+```
+
+### Semana 2
+
+```text
+Día 1-2
+↓
+Préstamos
+Devoluciones
+Historial
+
+Día 3
+↓
+Dashboard completo
+Validaciones
+
+Día 4
+↓
+Extras / mejoras
+
+Día 5
+↓
+Testing
+Documentación
+Presentación
+```
+
+
+
+---
+
+# 15. Lo mínimo para aprobar
+
+El proyecto considera como mínimo:
+
+```text
+✓ Login/logout
+✓ CRUD de libros
+✓ CRUD de usuarios
+✓ Registrar préstamo
+✓ Registrar devolución
+✓ 2-3 validaciones de negocio
+✓ Base de datos correctamente estructurada
+✓ Sin vulnerabilidades críticas
+```
+
+
+
+---
+
+## En una sola imagen mental
+
+Lo más importante para entender el proyecto es esto:
+
+```text
+                    USUARIO
+                       │
+                       ▼
+                 ┌──────────┐
+                 │   HTML   │
+                 └────┬─────┘
+                      │
+                      ▼
+                 ┌──────────┐
+                 │   PHP    │
+                 │  Lógica  │
+                 └────┬─────┘
+                      │
+                SQL / PDO/MySQLi
+                      │
+                      ▼
+              ┌───────────────┐
+              │     MySQL     │
+              │               │
+              │    libros     │
+              │    usuarios   │
+              │    prestamos  │
+              │    login      │
+              └───────────────┘
+```
+

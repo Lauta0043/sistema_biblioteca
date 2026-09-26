@@ -1,0 +1,476 @@
+# Lista de tareas — Sistema de Biblioteca
+
+## 🟢 FASE 1 — Preparar el proyecto
+
+* [ Listo ] Crear carpeta del proyecto dentro de `htdocs`.
+* [ Listo ] Crear repositorio Git.
+* [ ] Crear estructura de carpetas:
+
+  * [ ] `config/`
+  * [ ] `includes/`
+  * [ ] `libros/`
+  * [ ] `usuarios/`
+  * [ ] `prestamos/`
+  * [ ] `assets/css/`
+  * [ ] `assets/js/`
+  * [ ] `sql/`
+* [ ] Comprobar que Apache funciona.
+* [ ] Comprobar que MySQL funciona.
+* [ ] Acceder al proyecto mediante `localhost`.
+* [ ] Hacer primer commit.
+
+**Objetivo:** tener un proyecto vacío pero funcionando.
+
+---
+
+# 🟢 FASE 2 — Crear la base de datos
+
+Primero hacemos **solo SQL**.
+
+* [ ] Crear base de datos `biblioteca`.
+* [ ] Crear tabla `libros`.
+* [ ] Crear tabla `usuarios`.
+* [ ] Crear tabla `prestamos`.
+* [ ] Crear tabla `usuarios_sistema`.
+* [ ] Definir claves primarias.
+* [ ] Definir claves foráneas.
+* [ ] Definir campos `UNIQUE`.
+* [ ] Definir estados.
+* [ ] Insertar algunos datos de prueba.
+* [ ] Probar `SELECT`.
+* [ ] Probar `INSERT`.
+* [ ] Probar `UPDATE`.
+* [ ] Probar `DELETE`.
+* [ ] Probar `JOIN`.
+
+El modelo del trabajo establece esas cuatro tablas y las relaciones entre libros, usuarios y préstamos. 
+
+**Objetivo:** que la base de datos funcione independientemente de PHP.
+
+---
+
+# 🟢 FASE 3 — Conectar PHP con MySQL
+
+Ahora dejamos SQL un poco de lado.
+
+* [ ] Crear `config/database.php`.
+* [ ] Crear conexión PHP → MySQL.
+* [ ] Comprobar que la conexión funciona.
+* [ ] Aprender a ejecutar una consulta desde PHP.
+* [ ] Aprender a obtener resultados.
+* [ ] Aprender `prepared statements`.
+* [ ] Probar un `SELECT` desde PHP.
+* [ ] Probar un `INSERT` desde PHP.
+
+**Objetivo:**
+
+```text
+PHP
+ ↓
+MySQL
+ ↓
+PHP
+```
+
+---
+
+# 🟢 FASE 4 — Crear la estructura visual
+
+Ahora HTML + CSS.
+
+* [ ] Crear `header.php`.
+* [ ] Crear `footer.php`.
+* [ ] Crear menú de navegación.
+* [ ] Crear `estilos.css`.
+* [ ] Crear página principal.
+* [ ] Crear formulario HTML de prueba.
+* [ ] Crear tabla HTML de prueba.
+
+Todavía **sin JavaScript complejo**.
+
+**Objetivo:** tener una interfaz básica sobre la cual trabajar.
+
+---
+
+# 🟡 FASE 5 — Login
+
+El trabajo exige autenticación y protección mediante sesiones. 
+
+* [ ] Crear `login.php`.
+* [ ] Crear formulario usuario/contraseña.
+* [ ] Obtener usuario desde MySQL.
+* [ ] Verificar contraseña con `password_verify()`.
+* [ ] Crear sesión.
+* [ ] Crear `logout.php`.
+* [ ] Crear `auth.php`.
+* [ ] Impedir acceso a páginas privadas sin sesión.
+* [ ] Crear usuario administrador de prueba.
+
+**Objetivo:**
+
+```text
+Login
+  ↓
+PHP
+  ↓
+MySQL
+  ↓
+Sesión
+  ↓
+Dashboard
+```
+
+---
+
+# 🟡 FASE 6 — CRUD de libros
+
+Ahora hacemos nuestro primer módulo completo.
+
+### Listar
+
+* [ ] Crear `libros/index.php`.
+* [ ] Obtener libros mediante `SELECT`.
+* [ ] Mostrar libros en una tabla.
+
+### Crear
+
+* [ ] Crear `libros/crear.php`.
+* [ ] Crear formulario.
+* [ ] Recibir `POST`.
+* [ ] Validar datos.
+* [ ] Insertar libro.
+
+### Editar
+
+* [ ] Crear `libros/editar.php`.
+* [ ] Obtener ID.
+* [ ] Buscar libro.
+* [ ] Mostrar datos.
+* [ ] Modificar libro.
+
+### Eliminar
+
+* [ ] Crear `libros/eliminar.php`.
+* [ ] Recibir ID.
+* [ ] Verificar que no tenga préstamo activo.
+* [ ] Eliminar.
+
+El trabajo pide CRUD de libros y establece que un libro con préstamo activo no puede eliminarse. 
+
+**Objetivo:** poder administrar completamente los libros.
+
+---
+
+# 🟡 FASE 7 — CRUD de usuarios
+
+Repetimos prácticamente la misma lógica.
+
+* [ ] Listar usuarios.
+* [ ] Crear usuario.
+* [ ] Editar usuario.
+* [ ] Ver detalle.
+* [ ] Eliminar usuario.
+* [ ] Validar email único.
+* [ ] Validar DNI único.
+* [ ] Manejar estado activo/suspendido.
+* [ ] Impedir eliminación si tiene préstamos activos.
+
+El trabajo especifica estas operaciones y restricciones para los usuarios. 
+
+**Objetivo:** poder administrar las personas que utilizan la biblioteca.
+
+---
+
+# 🟠 FASE 8 — Registrar préstamos
+
+Acá empieza la parte más importante de la lógica del sistema.
+
+Crear:
+
+```text
+prestamos/nuevo.php
+```
+
+Tareas:
+
+* [ ] Mostrar libros disponibles.
+* [ ] Mostrar usuarios activos.
+* [ ] Seleccionar libro.
+* [ ] Seleccionar usuario.
+* [ ] Establecer fecha de préstamo.
+* [ ] Calcular fecha de devolución.
+* [ ] Agregar observaciones.
+* [ ] Comprobar que el libro esté disponible.
+* [ ] Comprobar que el usuario esté activo.
+* [ ] Comprobar préstamos vencidos.
+* [ ] Comprobar máximo de 3 préstamos.
+* [ ] Crear préstamo.
+* [ ] Cambiar libro → `prestado`.
+
+Las reglas del trabajo establecen, entre otras cosas, máximo de 3 préstamos simultáneos, usuario activo, libro disponible y control de préstamos vencidos. 
+
+---
+
+# 🟠 FASE 9 — Devolver libros
+
+Crear:
+
+```text
+prestamos/devolver.php
+```
+
+Tareas:
+
+* [ ] Mostrar préstamos activos.
+* [ ] Seleccionar préstamo.
+* [ ] Registrar fecha real de devolución.
+* [ ] Cambiar préstamo → `devuelto`.
+* [ ] Cambiar libro → `disponible`.
+* [ ] Calcular si hubo atraso.
+* [ ] Mostrar días de atraso.
+
+Esto también está especificado en el proyecto. 
+
+---
+
+# 🟠 FASE 10 — Historial de préstamos
+
+* [ ] Crear `prestamos/historial.php`.
+* [ ] Mostrar préstamos devueltos.
+* [ ] Mostrar usuario.
+* [ ] Mostrar libro.
+* [ ] Mostrar fecha de préstamo.
+* [ ] Mostrar fecha prevista.
+* [ ] Mostrar fecha real.
+* [ ] Mostrar estado.
+* [ ] Usar `JOIN`.
+
+Acá vas a empezar a aplicar realmente las relaciones:
+
+```text
+usuarios
+     ↓
+prestamos
+     ↑
+   libros
+```
+
+---
+
+# 🔵 FASE 11 — Dashboard
+
+Cuando todo lo anterior funciona, recién hacemos el panel principal.
+
+Debe mostrar, según el trabajo:
+
+* [ ] Total de libros.
+* [ ] Libros disponibles.
+* [ ] Libros prestados.
+* [ ] Usuarios activos.
+* [ ] Préstamos activos.
+* [ ] Préstamos vencidos.
+* [ ] Alertas.
+* [ ] Préstamos recientes.
+* [ ] Libros más prestados.
+* [ ] Accesos rápidos.
+
+
+
+---
+
+# 🔵 FASE 12 — JavaScript
+
+**Recién acá metería JavaScript en serio.**
+
+No antes.
+
+### Primero JavaScript básico
+
+* [ ] Seleccionar elementos con `querySelector`.
+* [ ] Eventos `click`.
+* [ ] Eventos `submit`.
+* [ ] Leer valores de formularios.
+* [ ] Modificar HTML.
+* [ ] Mostrar/ocultar elementos.
+* [ ] Mostrar mensajes.
+
+### Después aplicarlo al proyecto
+
+* [ ] Validar formularios.
+* [ ] Confirmar eliminación.
+* [ ] Mostrar mensajes de error.
+* [ ] Mostrar mensajes de éxito.
+* [ ] Validar campos antes de enviar.
+
+### Finalmente, si el tiempo alcanza
+
+* [ ] AJAX / `fetch()`.
+* [ ] Consultar PHP desde JavaScript.
+* [ ] Actualizar partes de la página sin recargar.
+
+El proyecto contempla JavaScript para validación del lado cliente, interacción de interfaz y, opcionalmente, AJAX. 
+
+---
+
+# 🔵 FASE 13 — Seguridad y validaciones
+
+* [ ] Prepared statements.
+* [ ] Validación del lado servidor.
+* [ ] Validación del lado cliente.
+* [ ] `password_hash()`.
+* [ ] `password_verify()`.
+* [ ] Sesiones.
+* [ ] Validación de IDs.
+* [ ] `htmlspecialchars()`.
+* [ ] Comprobar permisos.
+* [ ] Evitar SQL Injection.
+* [ ] Opcional: protección CSRF.
+
+Estos puntos forman parte de las recomendaciones de seguridad del trabajo. 
+
+---
+
+# 🔵 FASE 14 — Pruebas
+
+Acá hay que intentar **romper el sistema**.
+
+### Libros
+
+* [ ] Crear libro válido.
+* [ ] Crear libro con ISBN repetido.
+* [ ] Editar libro.
+* [ ] Eliminar libro disponible.
+* [ ] Intentar eliminar libro prestado.
+
+### Usuarios
+
+* [ ] Crear usuario.
+* [ ] Email repetido.
+* [ ] DNI repetido.
+* [ ] Suspender usuario.
+* [ ] Intentar prestar a usuario suspendido.
+
+### Préstamos
+
+* [ ] Prestar libro disponible.
+* [ ] Intentar prestar libro prestado.
+* [ ] Intentar superar 3 préstamos.
+* [ ] Intentar prestar a usuario suspendido.
+* [ ] Devolver libro.
+* [ ] Devolver libro atrasado.
+
+### Seguridad
+
+* [ ] Entrar sin login.
+* [ ] Cerrar sesión.
+* [ ] Intentar acceder directamente a páginas privadas.
+* [ ] Probar IDs inexistentes.
+
+---
+
+# 🟣 FASE 15 — Presentación y documentación
+
+* [ ] Crear `README.md`.
+* [ ] Explicar instalación.
+* [ ] Explicar base de datos.
+* [ ] Explicar usuarios.
+* [ ] Explicar módulos.
+* [ ] Documentar reglas del sistema.
+* [ ] Preparar capturas.
+* [ ] Preparar presentación.
+* [ ] Preparar demostración.
+* [ ] Revisar Git.
+* [ ] Revisar commits.
+* [ ] Verificar que otra computadora pueda ejecutar el proyecto.
+
+---
+
+# 📌 El orden que yo seguiría para aprenderlo
+
+Y esto es importante para **no caer nuevamente en el problema de tener cinco tecnologías mezcladas en la cabeza**.
+
+No estudies:
+
+```text
+HTML
+CSS
+PHP
+JavaScript
+SQL
+```
+
+simultáneamente.
+
+Estudiá así:
+
+```text
+1. SQL
+   ↓
+2. PHP + SQL
+   ↓
+3. HTML + PHP
+   ↓
+4. CRUD
+   ↓
+5. Sesiones
+   ↓
+6. Reglas de negocio
+   ↓
+7. JavaScript
+   ↓
+8. AJAX / fetch
+   ↓
+9. CSS / diseño
+```
+
+Y el proyecto va creciendo de esta manera:
+
+```text
+BASE DE DATOS
+      ↓
+CONEXIÓN PHP
+      ↓
+HTML + PHP
+      ↓
+CRUD LIBROS
+      ↓
+CRUD USUARIOS
+      ↓
+PRÉSTAMOS
+      ↓
+DEVOLUCIONES
+      ↓
+DASHBOARD
+      ↓
+JAVASCRIPT
+      ↓
+SEGURIDAD
+      ↓
+PRUEBAS
+```
+
+### 🎯 Tu primer objetivo no debería ser "hacer el sistema"
+
+Debería ser llegar a esto:
+
+```text
+[ PHP ]
+
+    ↓
+
+[ MySQL ]
+
+    ↓
+
+SELECT usuarios
+
+    ↓
+
+PHP recibe resultados
+
+    ↓
+
+HTML muestra usuarios
+```
+
+Cuando entiendas **ese recorrido**, el resto del sistema deja de ser un monstruo. Después simplemente vas agregando operaciones y reglas sobre la misma estructura.
