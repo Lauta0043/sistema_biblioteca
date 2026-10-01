@@ -4,20 +4,20 @@
 
 * [ Listo ] Crear carpeta del proyecto dentro de `htdocs`.
 * [ Listo ] Crear repositorio Git.
-* [ ] Crear estructura de carpetas:
+* [ Listo ] Crear estructura de carpetas:
 
-  * [ ] `config/`
-  * [ ] `includes/`
-  * [ ] `libros/`
-  * [ ] `usuarios/`
-  * [ ] `prestamos/`
-  * [ ] `assets/css/`
-  * [ ] `assets/js/`
-  * [ ] `sql/`
-* [ ] Comprobar que Apache funciona.
-* [ ] Comprobar que MySQL funciona.
-* [ ] Acceder al proyecto mediante `localhost`.
-* [ ] Hacer primer commit.
+  * [ Listo ] `config/`
+  * [ Listo ] `includes/`
+  * [ Listo ] `libros/`
+  * [ Listo ] `usuarios/`
+  * [ Listo ] `prestamos/`
+  * [ Listo ] `assets/css/`
+  * [ Listo ] `assets/js/`
+  * [ Listo ] `sql/`
+* [ Listo ] Comprobar que Apache funciona.
+* [ Listo ] Comprobar que MySQL funciona.
+* [ Listo ] Acceder al proyecto mediante `localhost`.
+* [ Listo ] Hacer primer commit.
 
 **Objetivo:** tener un proyecto vacío pero funcionando.
 
@@ -27,21 +27,21 @@
 
 Primero hacemos **solo SQL**.
 
-* [ ] Crear base de datos `biblioteca`.
-* [ ] Crear tabla `libros`.
-* [ ] Crear tabla `usuarios`.
-* [ ] Crear tabla `prestamos`.
-* [ ] Crear tabla `usuarios_sistema`.
-* [ ] Definir claves primarias.
-* [ ] Definir claves foráneas.
-* [ ] Definir campos `UNIQUE`.
-* [ ] Definir estados.
-* [ ] Insertar algunos datos de prueba.
-* [ ] Probar `SELECT`.
-* [ ] Probar `INSERT`.
-* [ ] Probar `UPDATE`.
-* [ ] Probar `DELETE`.
-* [ ] Probar `JOIN`.
+* [ Listo ] Crear base de datos `biblioteca`.
+* [ Listo ] Crear tabla `libros`.
+* [ Listo ] Crear tabla `usuarios`.
+* [ Listo ] Crear tabla `prestamos`.
+* [ Listo ] Crear tabla `usuarios_sistema`.
+* [ Listo ] Definir claves primarias.
+* [ Listo ] Definir claves foráneas.
+* [ Listo ] Definir campos `UNIQUE`.
+* [ Listo ] Definir estados.
+* [ Listo ] Insertar algunos datos de prueba.
+* [ Listo ] Probar `SELECT`.
+* [ Listo ] Probar `INSERT`.
+* [ Listo ] Probar `UPDATE`.
+* [ Listo ] Probar `DELETE`.
+* [ Listo ] Probar `JOIN`.
 
 El modelo del trabajo establece esas cuatro tablas y las relaciones entre libros, usuarios y préstamos. 
 
