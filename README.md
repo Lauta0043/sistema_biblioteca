@@ -6,6 +6,10 @@
 
 Sistema web completo para la gestión de bibliotecas, desarrollado con PHP y MySQL. Permite administrar libros, usuarios, préstamos y devoluciones con un panel de control intuitivo.
 
+**Versión actual**: 1.0.0  
+**Última actualización**: 2026-09-30  
+**Estado del proyecto**: En desarrollo
+
 ---
 
 ## 🎯 Características Principales
@@ -411,8 +415,7 @@ Este proyecto está disponible bajo la licencia MIT. Ver el archivo `LICENSE` pa
 
 ## 👥 Contribuidores
 
-- Desarrollador principal: Tu Nombre
-- Colaboradores: (agregar nombres)
+- Desarrollador principal: Kremer Lautaro
 
 ---
 
@@ -420,7 +423,7 @@ Este proyecto está disponible bajo la licencia MIT. Ver el archivo `LICENSE` pa
 
 Para reportar bugs o sugerencias:
 - Issue en GitHub
-- Email: tu@email.com
+- Email: Kremerlautaro267@email.com
 
 ---
 
